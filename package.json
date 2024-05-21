@@ -21,7 +21,8 @@
     "generate": "graphql-codegen --watch \"src/schema.ts\"", 
     "clean": "rimraf dist/",
     "copyFiles": "copyfiles -u 1 src/**/*.graphql dist",
-    "build": "npm run clean && npm run compile && npm run copyFiles"
+    "build": "npm run clean && npm run compile && npm run copyFiles",
+    "start:server": "node dist/index.js"
   },
   "dependencies": {
     "@apollo/datasource-rest": "^6.2.2",
