@@ -1,5 +1,5 @@
 {
-  "name": "Intro to GraphQL with TypeScript",
+  "name": "fsd",
   "private": true,
   "description": "The starter code for the Odyssey Intro to GraphQL with TypeScript course",
   "version": "0.0.0",
@@ -15,19 +15,34 @@
   },
   "scripts": {
     "compile": "tsc",
-    "dev": "ts-node-dev --respawn ./src/index.ts",
+    "dev": "concurrently \"ts-node-dev --respawn --watch ./**/*.graphql ./src/index.ts\" \"npm run generate --watch\"",
     "start": "npm run compile && nodemon ./dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "generate": "graphql-codegen --watch \"src/schema.ts\"", 
+    "clean": "rimraf dist/",
+    "copyFiles": "copyfiles -u 1 src/**/*.graphql dist",
+    "build": "npm run clean && npm run compile && npm run copyFiles"
   },
   "dependencies": {
-    "@parcel/watcher": "^2.4.0"
+    "@apollo/datasource-rest": "^6.2.2",
+    "@apollo/server": "^4.10.0",
+    "@graphql-tools/mock": "^9.0.1",
+    "@graphql-tools/schema": "^10.0.2",
+    "@parcel/watcher": "^2.4.0",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.4",
+    "@graphql-codegen/typescript-resolvers": "^4.0.4",
     "@types/jest": "^29.0.3",
     "@types/node": "^20.0.0",
     "concurrently": "^8.2.2",
+    "copyfiles": "2.3.0",
     "jest": "^29.0.3",
     "nodemon": "^3.0.0",
+    "rimraf": "^5.0.7",
     "ts-jest": "^29.0.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
